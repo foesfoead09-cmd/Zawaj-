@@ -68,7 +68,7 @@ h2.t{color:var(--gold);text-align:center}
     <div class="info">
       <h2 id="hName"></h2>
       <p id="hCity"></p>
-      <div class="tags"><span>🍳 الطبخ</span><span>✈️ السفر</span><span>📖 القراية</span></div>
+      
       <p id="hBio" style="font-size:14px;color:var(--mut);line-height:1.7"></p>
     </div>
     <div class="acts">
@@ -80,7 +80,7 @@ h2.t{color:var(--gold);text-align:center}
 
 <div id="s-matches" class="screen">
   <h2 class="t">التوافقات</h2>
-  <p style="text-align:center;color:var(--mut);margin:8px 0">أحسن التوافقات ليوم • 6 جداد</p>
+  <p style="text-align:center;color:var(--mut);margin:8px 0">الناس المسجلين فالتطبيق</p>
   <div class="grid" id="matches"></div>
 </div>
 
@@ -93,13 +93,13 @@ h2.t{color:var(--gold);text-align:center}
 <div id="s-profile" class="screen">
   <h2 class="t">حسابي</h2><div class="card info" style="border:1.5px solid #e74c3c"><b>🚫 ممنوع</b><p style="font-size:13px;line-height:1.7;margin:6px 0">ممنوع نشر أي صورة أو فيديو إباحي أو خادش للحياء، أو صور ناس آخرين بلا إذنهم. الحسابات المخالفة كتتحيد.</p><label style="font-size:13px;display:flex;gap:8px;align-items:center"><input type="checkbox" id="ok"> أتعهد باحترام هاد الشروط</label></div>
   <div class="av big card" id="pAv" style="background:#6a8caf;margin-top:12px;background-size:cover;background-position:center;cursor:pointer" onclick="$('pf').click()">👤</div><input type="file" id="pf" accept="image/*" style="display:none" onchange="pic(this)"><button class="btn white" onclick="$('pf').click()">📸 بدل الصورة</button>
-  <h2>عمر، 28 - الدار البيضاء <span id="vb"></span></h2><button class="btn white" id="vbtn" onclick="show('verify')">📱 وثّق حسابك</button>
-  <p style="color:var(--mut)">مهندس • كنقلب على بنت الناس للزواج الحلال</p>
+  <h2><span id="pn">البروفايل ديالي</span> <span id="vb"></span></h2><button class="btn white" id="vbtn" onclick="show('verify')">📱 وثّق حسابك</button>
+  
   <div class="tags"><span>⚽ الرياضة</span><span>🕌 الدين</span><span>💼 الخدمة</span></div>
-  <h3 style="margin:14px 0 6px;color:var(--gold)">الفيديوهات ديالي 🎬</h3><div class="card info"><b>💼 الخدمة ديالي</b><video id="v1" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f1" accept="video/*" style="display:none" onchange="vid(this,'v1')"><button class="btn white" onclick="$('f1').click()">🎬 زيد فيديو</button></div><div class="card info"><b>🍳 الطيب ديالي</b><video id="v2" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f2" accept="video/*" style="display:none" onchange="vid(this,'v2')"><button class="btn white" onclick="$('f2').click()">🎬 زيد فيديو</button></div><input class="input" value="عمر" placeholder="السمية">
-  <input class="input" value="الدار البيضاء" placeholder="المدينة">
-  <textarea class="input" rows="3">كنقلب على بنت الناس، العائلة والدين هوما الأولين.</textarea>
-  <button class="btn gold" onclick="toast('تحفظ البروفايل ✅')">حفظ البروفايل</button><button class="btn white" onclick="shareApp()">🔗 شارك التطبيق مع صحابك</button>
+  <h3 style="margin:14px 0 6px;color:var(--gold)">الفيديوهات ديالي 🎬</h3><div class="card info"><b>💼 الخدمة ديالي</b><video id="v1" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f1" accept="video/*" style="display:none" onchange="vid(this,'v1')"><button class="btn white" onclick="$('f1').click()">🎬 زيد فيديو</button></div><div class="card info"><b>🍳 الطيب ديالي</b><video id="v2" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f2" accept="video/*" style="display:none" onchange="vid(this,'v2')"><button class="btn white" onclick="$('f2').click()">🎬 زيد فيديو</button></div><input class="input" id="nm" maxlength="40" placeholder="السمية">
+  <input class="input" id="pc" maxlength="40" placeholder="المدينة">
+  <textarea class="input" id="bio" rows="3" maxlength="500" placeholder="عرف بنفسك..."></textarea>
+  <button class="btn gold" onclick="saveProfile()">حفظ البروفايل</button><button class="btn white" onclick="shareApp()">🔗 شارك التطبيق مع صحابك</button>
 </div>
 
 <div id="s-verify" class="screen"><h2 class="t">توثيق الحساب 📱</h2><div class="card info" style="border:1.5px solid #d4a017"><p style="font-size:13px;line-height:1.7">غنصيفطو ليك كود SMS على رقمك. دخل الرقم بحال 06XXXXXXXX.</p></div><div id="vs1"><input class="input" id="ph" type="tel" inputmode="tel" placeholder="رقم التيليفون (06...)" dir="ltr"><button class="btn gold" onclick="sendCode()">صيفط الكود</button></div><div id="vs2" style="display:none"><p style="margin:8px 0">دخل الكود اللي توصلتي به</p><input class="input" id="cd" inputmode="numeric" maxlength="6" placeholder="------" dir="ltr" style="text-align:center;letter-spacing:8px;font-size:22px"><button class="btn gold" onclick="checkCode()">تأكيد</button></div></div>
@@ -123,6 +123,7 @@ h2.t{color:var(--gold);text-align:center}
 <div id="rc"></div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 var P=[
 {n:"سلمى، 24",c:"الدار البيضاء",e:"👩",k:"#e88aa0",b:"كنقلب على راجل محترم ونية الزواج الحلال إن شاء الله. العائلة والدين هوما الأولين."},
@@ -186,6 +187,87 @@ function rep(){toast('🚩 تصيفط البلاغ، شكرا على مساعد�
 function vid(f,id){var x=f.files[0];if(!x)return;if(!$('ok').checked){f.value='';toast('وافق على الشروط قبل');return}if(x.size>60e6){toast('الفيديو كبير بزاف');return}var v=$(id);v.src=URL.createObjectURL(x);v.style.display='block';toast('تزاد الفيديو ✅')}
 function pic(f){var x=f.files[0];if(!x)return;if(!$('ok').checked){f.value='';toast('وافق على الشروط قبل');return}if(x.size>8e6){toast('الصورة كبيرة بزاف');return}var r=new FileReader();r.onload=function(){var a=$('pAv');a.style.backgroundImage='url('+r.result+')';a.textContent='';toast('تبدلات الصورة ✅')};r.readAsDataURL(x)}
 home();
+/* ===== Firestore ===== */
+var db=firebase.firestore();
+var me=null,users=[],ui=0,unsub=null,chatKey=null,curTarget='',myN='';
+var COLS=['#e88aa0','#5a8fb8','#c77dba','#d4a017','#4a7c59','#7a6aa8'];
+function col(id){var h=0;for(var i2=0;i2<id.length;i2++)h=(h+id.charCodeAt(i2))%COLS.length;return COLS[h]}
+function bad(v){return /whats?\s?app|watsap|واتس|وتس/i.test(v)||v.replace(/[^0-9\u0660-\u0669]/g,'').length>=8}
+var _show=show;
+show=function(id){
+  if(!me&&(id==='home'||id==='matches')){toast('وثّق حسابك أولا 📱');id='verify'}
+  _show(id);
+};
+auth.onAuthStateChanged(function(u){
+  me=u;
+  if(u){loadMe();loadUsers()}else{users=[];home();renderUsers()}
+});
+function loadMe(){
+  db.collection('users').doc(me.uid).get().then(function(d){
+    if(d.exists){var x=d.data();myN=x.name||'';$('nm').value=x.name||'';$('pc').value=x.city||'';$('bio').value=x.bio||'';$('pn').textContent=x.name||'البروفايل ديالي'}
+  }).catch(function(){});
+}
+function saveProfile(){
+  if(!me){toast('وثّق حسابك قبل');show('verify');return}
+  var n=$('nm').value.trim(),c=$('pc').value.trim(),b=$('bio').value.trim();
+  if(!n){toast('كتب السمية');return}
+  if(bad(n)||bad(c)||bad(b)){toast('🚫 ممنوع واتساب والأرقام فالبروفايل');return}
+  db.collection('users').doc(me.uid).set({name:n,city:c,bio:b,ts:firebase.firestore.FieldValue.serverTimestamp()})
+   .then(function(){myN=n;$('pn').textContent=n;toast('تحفظ البروفايل ✅')})
+   .catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+function loadUsers(){
+  db.collection('users').limit(30).get().then(function(s){
+    users=[];
+    s.forEach(function(d){if(d.id!==me.uid){var x=d.data();users.push({id:d.id,n:x.name||'مستعمل',c:x.city||'',b:x.bio||''})}});
+    ui=0;home();renderUsers();
+  }).catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+function home(){
+  var u=users[ui];
+  if(!me){$('hAv').style.background='#999';$('hAv').textContent='📱';$('hName').textContent='وثّق حسابك';$('hCity').textContent='';$('hBio').textContent='باش تشوف الناس وتهضر معاهم، خاصك توثق الحساب بالتيليفون.';return}
+  if(!u){$('hAv').style.background='#999';$('hAv').textContent='🕊️';$('hName').textContent='ما كاين حتى واحد دابا';$('hCity').textContent='';$('hBio').textContent='كي يسجل ناس آخرين غيبانو هنا. عمر البروفايل ديالك من "حسابي".';return}
+  $('hAv').style.background=col(u.id);$('hAv').textContent='👤';
+  $('hName').textContent=u.n;$('hCity').textContent=u.c?'📍 '+u.c:'';$('hBio').textContent=u.b;
+}
+function nextP(){if(users.length){ui=(ui+1)%users.length}home()}
+function likeP(){if(!users[ui]){return}openChat(users[ui])}
+function renderUsers(){
+  $('matches').innerHTML=users.map(function(u,x){return '<div class="mcard" onclick="openChat(users['+x+'])"><div class="av" style="background:'+col(u.id)+'">👤</div><b>'+esc(u.n)+'</b><div>'+(u.c?'📍 '+esc(u.c):'')+'</div></div>'}).join('')||'<p style="grid-column:1/3;text-align:center;color:var(--mut)">ما كاين حتى واحد دابا</p>';
+  $('msgList').innerHTML='<div class="msg" onclick="openChat(null)"><div class="av" style="background:#7a6aa8">👥</div><div style="flex:1"><b>مجموعة الدردشة</b><br><span style="color:var(--mut);font-size:13px">تعارف واحترام بين الجميع</span></div></div><p style="color:var(--mut);font-size:13px;margin-top:12px">باش تبدا محادثة خاصة، دوز على "التوافقات" وختار شي واحد.</p>';
+}
+function openChat(u){
+  if(!me){toast('وثّق حسابك قبل');show('verify');return}
+  if(unsub){unsub();unsub=null}
+  var g=!u;
+  $('cAv').style.background=g?'#7a6aa8':col(u.id);$('cAv').textContent=g?'👥':'👤';
+  $('cName').textContent=g?'مجموعة الدردشة':u.n;
+  chatKey=g?null:[me.uid,u.id].sort().join('_');
+  curTarget=g?'group':u.id;
+  var q=g?db.collection('groupMsgs'):db.collection('chats').doc(chatKey).collection('messages');
+  unsub=q.orderBy('ts','desc').limit(50).onSnapshot(function(s){
+    var a=[];s.forEach(function(d){a.push(d.data())});a.reverse();
+    $('chatBox').innerHTML=a.map(function(m){var mine=m.from===me.uid;return '<div class="bubble '+(mine?'br':'bl')+'">'+(g&&!mine?'<b>'+esc(m.name||'')+':</b> ':'')+esc(m.text)+'</div>'}).join('');
+    window.scrollTo(0,document.body.scrollHeight);
+  },function(e){toast('خطأ: '+(e.code||''))});
+  _show('chat');
+}
+function send(){
+  var v=$('ct').value.trim();if(!v||!me)return;
+  if(bad(v)){toast('🚫 ممنوع واتساب والأرقام فالدردشة');return}
+  var m={from:me.uid,text:v,ts:firebase.firestore.FieldValue.serverTimestamp()},p;
+  if(chatKey){p=db.collection('chats').doc(chatKey).collection('messages').add(m)}
+  else{m.name=(myN||'مستعمل').slice(0,40);p=db.collection('groupMsgs').add(m)}
+  p.catch(function(e){toast('خطأ: '+(e.code||''))});
+  $('ct').value='';
+}
+function rep(){
+  if(!me){toast('وثّق حسابك قبل');return}
+  var t=$('s-chat').classList.contains('active')?curTarget:((users[ui]||{}).id||'');
+  db.collection('reports').add({by:me.uid,target:t,ts:firebase.firestore.FieldValue.serverTimestamp()})
+   .then(function(){toast('🚩 تصيفط البلاغ، شكرا')}).catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+$('matches').innerHTML='';renderUsers();home();
 </script>
 </body>
 </html>
