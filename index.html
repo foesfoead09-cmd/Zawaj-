@@ -99,7 +99,7 @@ h2.t{color:var(--gold);text-align:center}
   <h3 style="margin:14px 0 6px;color:var(--gold)">الفيديوهات ديالي 🎬</h3><div class="card info"><b>💼 الخدمة ديالي</b><video id="v1" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f1" accept="video/*" style="display:none" onchange="vid(this,'v1')"><button class="btn white" onclick="$('f1').click()">🎬 زيد فيديو</button></div><div class="card info"><b>🍳 الطيب ديالي</b><video id="v2" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f2" accept="video/*" style="display:none" onchange="vid(this,'v2')"><button class="btn white" onclick="$('f2').click()">🎬 زيد فيديو</button></div><input class="input" id="nm" maxlength="40" placeholder="السمية">
   <input class="input" id="pc" maxlength="40" placeholder="المدينة">
   <textarea class="input" id="bio" rows="3" maxlength="500" placeholder="عرف بنفسك..."></textarea>
-  <button class="btn gold" onclick="saveProfile()">حفظ البروفايل</button><button class="btn white" onclick="shareApp()">🔗 شارك التطبيق مع صحابك</button><button class="btn white" id="lo" onclick="logout()" style="color:#e74c3c;border-color:#e74c3c">🚪 تسجيل الخروج</button>
+  <button class="btn gold" onclick="saveProfile()">حفظ البروفايل</button><p id="ss" style="font-size:13px;text-align:center;color:var(--mut);margin:6px 0;word-break:break-word"></p><button class="btn white" onclick="shareApp()">🔗 شارك التطبيق مع صحابك</button><button class="btn white" id="lo" onclick="logout()" style="color:#e74c3c;border-color:#e74c3c">🚪 تسجيل الخروج</button>
 </div>
 
 <div id="s-verify" class="screen"><h2 class="t">توثيق الحساب 📱</h2><div class="card info" style="border:1.5px solid #d4a017"><p style="font-size:13px;line-height:1.7">غنصيفطو ليك كود SMS على رقمك. دخل الرقم بحال 06XXXXXXXX.</p></div><div id="vs1"><input class="input" id="ph" type="tel" inputmode="tel" placeholder="رقم التيليفون (06...)" dir="ltr"><button class="btn gold" onclick="sendCode()">صيفط الكود</button></div><div id="vs2" style="display:none"><p style="margin:8px 0">دخل الكود اللي توصلتي به</p><input class="input" id="cd" inputmode="numeric" maxlength="6" placeholder="------" dir="ltr" style="text-align:center;letter-spacing:8px;font-size:22px"><button class="btn gold" onclick="checkCode()">تأكيد</button></div></div>
@@ -146,7 +146,7 @@ var G={n:"مجموعة الدردشة",e:"👥",k:"#7a6aa8"};var i=0,logs={"مج
 function $(x){return document.getElementById(x)}
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function av(p,cls){return '<div class="av '+(cls||'')+'" style="background:'+p.k+'">'+p.e+'</div>'}
-function toast(m){var t=$('toast');t.textContent=m;t.className='on';setTimeout(function(){t.className=''},1800)}
+function toast(m){var t=$('toast');t.textContent=m;t.className='on';setTimeout(function(){t.className=''},(/خطأ/.test(m)?9000:1800))}
 function show(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
   $('s-'+id).classList.add('active');
@@ -212,8 +212,8 @@ function saveProfile(){
   var n=$('nm').value.trim(),c=$('pc').value.trim(),b=$('bio').value.trim();
   if(!n){toast('كتب السمية');return}
   if(bad(n)||bad(c)||bad(b)){toast('🚫 ممنوع واتساب والأرقام فالبروفايل');return}
-  db.collection('users').doc(me.uid).set({name:n,city:c,bio:b,ts:firebase.firestore.FieldValue.serverTimestamp()})
-   .then(function(){myN=n;$('pn').textContent=n;toast('تحفظ البروفايل ✅')})
+  $('ss').textContent='⏳ كنحفظ...';db.collection('users').doc(me.uid).set({name:n,city:c,bio:b,ts:firebase.firestore.FieldValue.serverTimestamp()})
+   .then(function(){myN=n;$('pn').textContent=n;$('ss').textContent='✅ تحفظ';toast('تحفظ البروفايل ✅')},function(e){$('ss').textContent='❌ '+(e.code||'')+' '+(e.message||'');toast('خطأ: '+(e.code||''))})
    .catch(function(e){toast('خطأ: '+(e.code||''))});
 }
 function loadUsers(){
