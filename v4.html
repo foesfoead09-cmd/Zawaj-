@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>زواج</title>
+<style>
+:root{--bg:#fff;--card:#fff;--tx:#333;--mut:#888;--gold:#b8860b;--pink:#e88aa0;--soft:#fff0f3;--bd:#ddd;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1416;--card:#2a2023;--tx:#f3e9eb;--mut:#b5a3a8;--gold:#e0b84a;--soft:#3a2a2f;--bd:#4a3a3f;color-scheme:dark}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,Arial,sans-serif}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--tx);max-width:480px;margin:auto;min-height:100vh;padding-bottom:90px}
+.screen{display:none;padding:16px}.screen.active{display:block}
+.logo{text-align:center;font-size:44px;color:var(--gold);font-weight:bold;margin:30px 0 5px}
+.sub{text-align:center;color:var(--pink);margin-bottom:15px}
+.hero{height:260px;border-radius:22px;background:linear-gradient(135deg,#d4a017,#e88aa0);display:flex;align-items:center;justify-content:center;font-size:90px}
+.btn{width:100%;padding:16px;border:none;border-radius:25px;font-size:18px;font-weight:bold;cursor:pointer;margin:8px 0}
+.gold{background:linear-gradient(90deg,#d4a017,#e88aa0);color:#fff}
+.white{background:var(--card);color:var(--gold);border:1.5px solid #d4a017}
+.card{background:var(--card);border-radius:22px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.1);margin:12px 0}
+.av{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold}
+.big{height:300px;font-size:90px}
+.info{padding:14px}.info h2{font-size:24px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tags span{background:var(--soft);color:var(--gold);padding:7px 12px;border-radius:20px;font-size:13px}
+.acts{display:flex;gap:12px;padding:0 14px 14px}
+.acts button{flex:1;padding:14px;border-radius:50px;border:none;font-size:18px;cursor:pointer}
+.pass{background:#eee;color:#333}.like{background:#ff5a7a;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mcard{background:var(--card);box-shadow:0 3px 12px rgba(0,0,0,.1);border-radius:18px;overflow:hidden;text-align:center;padding-bottom:10px;cursor:pointer}
+.mcard .av{height:130px;font-size:56px}.mcard b{display:block;margin-top:8px}
+.compat{background:var(--soft);color:var(--gold);padding:5px 10px;border-radius:20px;font-size:12px;display:inline-block;margin-top:6px}
+.msg{box-shadow:0 3px 12px rgba(0,0,0,.08);display:flex;gap:12px;background:var(--card);padding:12px;border-radius:16px;margin:10px 0;align-items:center;cursor:pointer}
+.msg .av{width:55px;height:55px;border-radius:50%;font-size:26px;flex:none}
+.head{background:var(--soft);padding:14px;border-radius:18px;display:flex;gap:12px;align-items:center}
+.head .av{width:56px;height:56px;border-radius:50%;font-size:26px}
+.chat{display:flex;flex-direction:column}
+.bubble{padding:12px 14px;border-radius:18px;margin:6px 0;max-width:85%;line-height:1.6;font-size:14px}
+.bl{background:var(--card);align-self:flex-start}.br{background:var(--pink);color:#fff;align-self:flex-end}
+.cin{display:none;gap:8px;position:fixed;bottom:calc(66px + env(safe-area-inset-bottom,0px));left:0;right:0;max-width:480px;margin:auto;background:var(--card);padding:10px}
+.cin input,.input{flex:1;padding:13px;border-radius:25px;border:1px solid var(--bd);background:var(--card);color:var(--tx);outline:none}
+.input{width:100%;border-radius:12px;margin:8px 0;display:block}
+.cin button{background:#d4a017;color:#fff;border:none;width:48px;height:48px;border-radius:50%;font-size:20px}
+.nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:auto;background:var(--card);display:flex;justify-content:space-around;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd);z-index:9}
+.nav button{border:none;background:none;font-size:13px;color:var(--mut);cursor:pointer}
+.nav button.on{color:var(--gold);font-weight:bold}
+h2.t{color:var(--gold);text-align:center}
+#toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:20px;opacity:0;transition:.3s;z-index:99;pointer-events:none}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<div id="dbg" style="position:fixed;top:env(safe-area-inset-top,0px);left:4px;font-size:11px;color:#e74c3c;z-index:100;pointer-events:none;direction:ltr;max-width:95%;word-break:break-word">v4</div>
+<script>window.addEventListener("error",function(e){var d=document.getElementById("dbg");if(d)d.textContent="v4 ERR: "+e.message});window.addEventListener("unhandledrejection",function(e){var d=document.getElementById("dbg");if(d)d.textContent="v4 REJ: "+((e.reason&&(e.reason.code||e.reason.message))||e.reason)})</script>
+
+<div id="s-welcome" class="screen active">
+  <div class="logo">❤️ زواج</div>
+  <p class="sub">لقا نصيبك بالحلال</p>
+  <div class="hero">💍</div>
+  <button class="btn gold" onclick="show('home')">صاوب حساب</button>
+  <button class="btn white" onclick="show('home')">دخول</button>
+  <p style="text-align:center;font-size:12px;color:var(--mut);margin-top:12px">بالاستمرار نتا موافق على الشروط والخصوصية</p>
+</div>
+
+<div id="s-home" class="screen">
+  <h2 class="t">زواج 💍</h2>
+  <div class="card">
+    <div class="av big" id="hAv"></div>
+    <div class="info">
+      <h2 id="hName"></h2>
+      <p id="hCity"></p>
+      
+      <p id="hBio" style="font-size:14px;color:var(--mut);line-height:1.7"></p>
+    </div>
+    <div class="acts">
+      <button class="pass" onclick="nextP()">✕ تجاوز</button>
+      <button class="like" onclick="likeP()">❤️ قبول</button></div><div style="text-align:center;padding-bottom:12px"><button onclick="rep()" style="border:none;background:none;color:var(--mut);font-size:13px;cursor:pointer">🚩 بلّغ</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-matches" class="screen">
+  <h2 class="t">التوافقات</h2>
+  <p style="text-align:center;color:var(--mut);margin:8px 0">الناس المسجلين فالتطبيق</p>
+  <div class="grid" id="matches"></div>
+</div>
+
+<div id="s-messages" class="screen">
+  <h2 class="t">الرسائل 💬</h2>
+  <input class="input" placeholder="🔍 قلب على...">
+  <div id="msgList"></div>
+</div>
+
+<div id="s-profile" class="screen">
+  <h2 class="t">حسابي</h2><div class="card info" style="border:1.5px solid #e74c3c"><b>🚫 ممنوع</b><p style="font-size:13px;line-height:1.7;margin:6px 0">ممنوع نشر أي صورة أو فيديو إباحي أو خادش للحياء، أو صور ناس آخرين بلا إذنهم. الحسابات المخالفة كتتحيد.</p><label style="font-size:13px;display:flex;gap:8px;align-items:center"><input type="checkbox" id="ok"> أتعهد باحترام هاد الشروط</label></div>
+  <div class="av big card" id="pAv" style="background:#6a8caf;margin-top:12px;background-size:cover;background-position:center;cursor:pointer" onclick="$('pf').click()">👤</div><input type="file" id="pf" accept="image/*" style="display:none" onchange="pic(this)"><button class="btn white" onclick="$('pf').click()">📸 بدل الصورة</button>
+  <h2><span id="pn">البروفايل ديالي</span> <span id="vb"></span></h2><button class="btn white" id="vbtn" onclick="show('verify')">📱 وثّق حسابك</button>
+  
+  <div class="tags"><span>⚽ الرياضة</span><span>🕌 الدين</span><span>💼 الخدمة</span></div>
+  <h3 style="margin:14px 0 6px;color:var(--gold)">الفيديوهات ديالي 🎬</h3><div class="card info"><b>💼 الخدمة ديالي</b><video id="v1" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f1" accept="video/*" style="display:none" onchange="vid(this,'v1')"><button class="btn white" onclick="$('f1').click()">🎬 زيد فيديو</button></div><div class="card info"><b>🍳 الطيب ديالي</b><video id="v2" controls playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video><input type="file" id="f2" accept="video/*" style="display:none" onchange="vid(this,'v2')"><button class="btn white" onclick="$('f2').click()">🎬 زيد فيديو</button></div><input class="input" id="nm" maxlength="40" placeholder="السمية">
+  <input class="input" id="pc" maxlength="40" placeholder="المدينة">
+  <textarea class="input" id="bio" rows="3" maxlength="500" placeholder="عرف بنفسك..."></textarea>
+  <button class="btn gold" onclick="saveProfile()">حفظ البروفايل</button><p id="ss" style="font-size:13px;text-align:center;color:var(--mut);margin:6px 0;word-break:break-word"></p><button class="btn white" onclick="shareApp()">🔗 شارك التطبيق مع صحابك</button><button class="btn white" id="lo" onclick="logout()" style="color:#e74c3c;border-color:#e74c3c">🚪 تسجيل الخروج</button>
+</div>
+
+<div id="s-verify" class="screen"><h2 class="t">توثيق الحساب 📱</h2><div class="card info" style="border:1.5px solid #d4a017"><p style="font-size:13px;line-height:1.7">غنصيفطو ليك كود SMS على رقمك. دخل الرقم بحال 06XXXXXXXX.</p></div><div id="vs1"><input class="input" id="ph" type="tel" inputmode="tel" placeholder="رقم التيليفون (06...)" dir="ltr"><button class="btn gold" onclick="sendCode()">صيفط الكود</button></div><div id="vs2" style="display:none"><p style="margin:8px 0">دخل الكود اللي توصلتي به</p><input class="input" id="cd" inputmode="numeric" maxlength="6" placeholder="------" dir="ltr" style="text-align:center;letter-spacing:8px;font-size:22px"><button class="btn gold" onclick="checkCode()">تأكيد</button></div></div>
+<div id="s-chat" class="screen">
+  <div class="head"><div class="av" id="cAv"></div><div><b id="cName"></b><br><span style="color:#2ecc71">● متصل</span></div><button onclick="rep()" style="margin-right:auto;border:none;background:none;font-size:13px;color:var(--mut);cursor:pointer">🚩 بلّغ</button></div>
+  <div class="chat" id="chatBox"></div>
+  <div style="height:70px"></div>
+</div>
+<div class="cin" id="cin">
+  <input id="ct" placeholder="كتب رسالة محترمة...">
+  <button onclick="send()">➤</button>
+</div>
+
+<div class="nav">
+  <button id="b-home" class="on" onclick="show('home')">🏠<br>الرئيسية</button>
+  <button id="b-matches" onclick="show('matches')">❤️<br>التوافقات</button>
+  <button id="b-messages" onclick="show('messages')">💬<br>الرسائل</button>
+  <button id="b-profile" onclick="show('profile')">👤<br>حسابي</button>
+</div>
+
+<div id="rc"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+var P=[
+{n:"سلمى، 24",c:"الدار البيضاء",e:"👩",k:"#e88aa0",b:"كنقلب على راجل محترم ونية الزواج الحلال إن شاء الله. العائلة والدين هوما الأولين."},
+{n:"أمينة، 27",c:"مراكش",e:"👩",k:"#c77dba",b:"بنت الناس، كنحب الاحترام والصراحة. نية الزواج على سنة الله ورسوله."},
+{n:"يوسف، 30",c:"الدار البيضاء",e:"👨",k:"#5a8fb8",b:"كنقلب على شريكة الحياة على الخير والصبر. الدار ديالنا مبنية على الاحترام."},
+{n:"فاطمة، 25",c:"الرباط",e:"👩",k:"#d4a017",b:"كنحب القراية والسفر. بغيت واحد صالح وكيخاف الله."}
+];
+var M=[
+{p:P[1],t:"95%"},{p:P[2],t:"92%"},{p:P[3],t:"88%"},
+{p:{n:"عمر، 31",c:"طنجة",e:"👨",k:"#4a7c59"},t:"95%"},
+{p:{n:"سلمى، 26",c:"أكادير",e:"👩",k:"#e88aa0"},t:"92%"},
+{p:{n:"مهدي، 28",c:"الرباط",e:"👨",k:"#7a6aa8"},t:"88%"}
+];
+var MS=[
+{p:{n:"سلمى",e:"👩",k:"#e88aa0"},l:"إن شاء الله خير...",t:"2د"},
+{p:{n:"يوسف",e:"👨",k:"#5a8fb8"},l:"السلام عليكم",t:"1س"},
+{p:{n:"إيمان",e:"👩",k:"#c77dba"},l:"الله يبارك فيك",t:"1س"}
+];
+var G={n:"مجموعة الدردشة",e:"👥",k:"#7a6aa8"};var i=0,logs={"مجموعة الدردشة":[['l','سلمى: السلام عليكم الجماعة 🌸'],['l','يوسف: وعليكم السلام ورحمة الله، مرحبا بالجميع'],['l','أمينة: نذكركم بالاحترام، وممنوع الصور الخادشة 🚫']]};
+function $(x){return document.getElementById(x)}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function av(p,cls){return '<div class="av '+(cls||'')+'" style="background:'+p.k+'">'+p.e+'</div>'}
+function toast(m){var t=$('toast');t.textContent=m;t.className='on';setTimeout(function(){t.className=''},(/خطأ/.test(m)?9000:1800))}
+function show(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  $('s-'+id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('on')});
+  var b=$('b-'+(id==='chat'?'messages':id==='verify'?'profile':id));if(b)b.classList.add('on');
+  $('cin').style.display=id==='chat'?'flex':'none';
+  window.scrollTo(0,0);
+}
+function home(){var p=P[i];$('hAv').style.background=p.k;$('hAv').textContent=p.e;$('hName').textContent=p.n;$('hCity').textContent='📍 '+p.c+' • ما تزوجاتش من قبل';$('hBio').textContent=p.b}
+function nextP(){i=(i+1)%P.length;home()}
+function likeP(){toast('❤️ تصيفط الإعجاب ل'+P[i].n.split('،')[0]);nextP()}
+function openChat(p){
+  var k=p.n.split('،')[0];
+  $('cAv').style.background=p.k;$('cAv').textContent=p.e;$('cName').textContent=p.n;
+  if(!logs[k])logs[k]=[
+    ['l','السلام عليكم. أنا هنا بنية الزواج الحلال إن شاء الله. شنو هي القيم اللي مهمين عندك؟'],
+    ['r','وعليكم السلام. العائلة والدين هوما الأولين عندي. ونتا؟'],
+    ['l','نفس الشي. كنقلب على دار مبنية على الاحترام والصبر ❤️']];
+  window.cur=k;draw();show('chat');
+}
+function draw(){$('chatBox').innerHTML=logs[cur].map(function(m){return '<div class="bubble b'+m[0]+'">'+esc(m[1])+'</div>'}).join('')}
+function send(){var v=$('ct').value.trim();if(!v)return;if(/whats?\s?app|watsap|واتس|وتس/i.test(v)||v.replace(/[^0-9\u0660-\u0669]/g,'').length>=8){toast('🚫 ممنوع واتساب والأرقام فالدردشة');return}logs[cur].push(['r',v]);$('ct').value='';draw()}
+$('matches').innerHTML=M.map(function(m,x){return '<div class="mcard" onclick="openChat(M['+x+'].p)">'+av(m.p)+'<b>'+m.p.n+'</b><div>📍 '+m.p.c+'</div><span class="compat">❤️ توافق '+m.t+'</span></div>'}).join('');
+$('msgList').innerHTML='<div class="msg" onclick="openChat(G)">'+av(G)+'<div style="flex:1"><b>'+G.n+'</b><br><span style="color:var(--mut);font-size:13px">تعارف واحترام بين الجميع</span></div><span style="color:var(--mut);font-size:12px">👥</span></div>'+MS.map(function(m,x){return '<div class="msg" onclick="openChat(MS['+x+'].p)">'+av(m.p)+'<div style="flex:1"><b>'+m.p.n+' <span style="color:#2ecc71">●</span></b><br><span style="color:var(--mut);font-size:13px">'+m.l+'</span></div><span style="color:var(--mut);font-size:12px">'+m.t+'</span></div>'}).join('');
+firebase.initializeApp({apiKey:"AIzaSyC2jXb_yTdWwjYc-dOrdoDfVC7Db6l7Hro",authDomain:"zawaj-bb9d5.firebaseapp.com",projectId:"zawaj-bb9d5",storageBucket:"zawaj-bb9d5.firebasestorage.app",messagingSenderId:"691863179653",appId:"1:691863179653:web:02111b24e66a06c99bb4ec"});
+var auth=firebase.auth();auth.languageCode='ar';
+var conf=null,rv=null;
+function fmt(x){var d=x.replace(/\D/g,'');if(/^0\d{9}$/.test(d))return '+212'+d.slice(1);return '+'+d}
+function badge(){$('vb').textContent='\u2713 \u0645\u0648\u062b\u0642';$('vb').style.cssText='color:#2ecc71;font-size:13px';$('vbtn').style.display='none'}
+auth.onAuthStateChanged(function(u){if(u)badge()});
+function sendCode(){var p=fmt($('ph').value);if(!/^\+\d{10,15}$/.test(p)){toast('\u0627\u0644\u0631\u0642\u0645 \u0645\u0627\u0634\u064a \u0635\u062d\u064a\u062d');return}
+if(!rv)rv=new firebase.auth.RecaptchaVerifier('rc',{size:'invisible'});
+auth.signInWithPhoneNumber(p,rv).then(function(c){conf=c;$('vs1').style.display='none';$('vs2').style.display='block';toast('\ud83d\udce9 \u062a\u0635\u064a\u0641\u0637 \u0627\u0644\u0643\u0648\u062f')}).catch(function(e){console.error(e);toast('\u062e\u0637\u0623: '+(e.code||''));try{rv.clear()}catch(x){}rv=null})}
+function checkCode(){var v=$('cd').value.replace(/\D/g,'');if(v.length!==6||!conf){toast('\u0627\u0644\u0643\u0648\u062f \u062e\u0627\u0635\u0648 6 \u0623\u0631\u0642\u0627\u0645');return}
+conf.confirm(v).then(function(){badge();toast('\u062a\u0645 \u0627\u0644\u062a\u0648\u062b\u064a\u0642 \u2705');show('profile')}).catch(function(){toast('\u0627\u0644\u0643\u0648\u062f \u063a\u0627\u0644\u0637')})}
+function shareApp(){var u=location.href,d={title:'زواج',text:'لقا نصيبك بالحلال على تطبيق زواج 💍',url:u};if(navigator.share){navigator.share(d).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){toast('تنسخ الرابط ✅')}).catch(function(){toast('ما قدرناش ننسخو الرابط')})}else{toast('ما قدرناش ننسخو الرابط')}}
+function rep(){toast('🚩 تصيفط البلاغ، شكرا على مساعدتك')}
+function vid(f,id){var x=f.files[0];if(!x)return;if(!$('ok').checked){f.value='';toast('وافق على الشروط قبل');return}if(x.size>60e6){toast('الفيديو كبير بزاف');return}var v=$(id);v.src=URL.createObjectURL(x);v.style.display='block';toast('تزاد الفيديو ✅')}
+function pic(f){var x=f.files[0];if(!x)return;if(!$('ok').checked){f.value='';toast('وافق على الشروط قبل');return}if(x.size>8e6){toast('الصورة كبيرة بزاف');return}var r=new FileReader();r.onload=function(){var a=$('pAv');a.style.backgroundImage='url('+r.result+')';a.textContent='';toast('تبدلات الصورة ✅')};r.readAsDataURL(x)}
+home();
+/* ===== Firestore ===== */
+var db=firebase.firestore();
+var me=null,users=[],ui=0,unsub=null,chatKey=null,curTarget='',myN='';
+var COLS=['#e88aa0','#5a8fb8','#c77dba','#d4a017','#4a7c59','#7a6aa8'];
+function col(id){var h=0;for(var i2=0;i2<id.length;i2++)h=(h+id.charCodeAt(i2))%COLS.length;return COLS[h]}
+function bad(v){return /whats?\s?app|watsap|واتس|وتس/i.test(v)||v.replace(/[^0-9\u0660-\u0669]/g,'').length>=8}
+var _show=show;
+show=function(id){
+  if(!me&&(id==='home'||id==='matches')){toast('وثّق حسابك أولا 📱');id='verify'}
+  _show(id);
+};
+auth.onAuthStateChanged(function(u){
+  me=u;$('dbg').textContent='v4 · '+(u?'signed-in':'signed-out');
+  if(u){loadMe();loadUsers()}else{users=[];home();renderUsers()}
+});
+function loadMe(){
+  db.collection('users').doc(me.uid).get().then(function(d){
+    if(d.exists){var x=d.data();myN=x.name||'';$('nm').value=x.name||'';$('pc').value=x.city||'';$('bio').value=x.bio||'';$('pn').textContent=x.name||'البروفايل ديالي'}
+  }).catch(function(){});
+}
+function saveProfile(){$('ss').textContent='▶ ضغطتي على الحفظ';
+  if(!me){toast('وثّق حسابك قبل');show('verify');return}
+  var n=$('nm').value.trim(),c=$('pc').value.trim(),b=$('bio').value.trim();
+  if(!n){toast('كتب السمية');return}
+  if(bad(n)||bad(c)||bad(b)){toast('🚫 ممنوع واتساب والأرقام فالبروفايل');return}
+  $('ss').textContent='⏳ كنحفظ...';db.collection('users').doc(me.uid).set({name:n,city:c,bio:b,ts:firebase.firestore.FieldValue.serverTimestamp()})
+   .then(function(){myN=n;$('pn').textContent=n;$('ss').textContent='✅ تحفظ';toast('تحفظ البروفايل ✅')},function(e){$('ss').textContent='❌ '+(e.code||'')+' '+(e.message||'');toast('خطأ: '+(e.code||''))})
+   .catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+function loadUsers(){
+  db.collection('users').limit(30).get().then(function(s){
+    users=[];
+    s.forEach(function(d){if(d.id!==me.uid){var x=d.data();users.push({id:d.id,n:x.name||'مستعمل',c:x.city||'',b:x.bio||''})}});
+    ui=0;home();renderUsers();
+  }).catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+function home(){
+  var u=users[ui];
+  if(!me){$('hAv').style.background='#999';$('hAv').textContent='📱';$('hName').textContent='وثّق حسابك';$('hCity').textContent='';$('hBio').textContent='باش تشوف الناس وتهضر معاهم، خاصك توثق الحساب بالتيليفون.';return}
+  if(!u){$('hAv').style.background='#999';$('hAv').textContent='🕊️';$('hName').textContent='ما كاين حتى واحد دابا';$('hCity').textContent='';$('hBio').textContent='كي يسجل ناس آخرين غيبانو هنا. عمر البروفايل ديالك من "حسابي".';return}
+  $('hAv').style.background=col(u.id);$('hAv').textContent='👤';
+  $('hName').textContent=u.n;$('hCity').textContent=u.c?'📍 '+u.c:'';$('hBio').textContent=u.b;
+}
+function nextP(){if(users.length){ui=(ui+1)%users.length}home()}
+function likeP(){if(!users[ui]){return}openChat(users[ui])}
+function renderUsers(){
+  $('matches').innerHTML=users.map(function(u,x){return '<div class="mcard" onclick="openChat(users['+x+'])"><div class="av" style="background:'+col(u.id)+'">👤</div><b>'+esc(u.n)+'</b><div>'+(u.c?'📍 '+esc(u.c):'')+'</div></div>'}).join('')||'<p style="grid-column:1/3;text-align:center;color:var(--mut)">ما كاين حتى واحد دابا</p>';
+  $('msgList').innerHTML='<div class="msg" onclick="openChat(null)"><div class="av" style="background:#7a6aa8">👥</div><div style="flex:1"><b>مجموعة الدردشة</b><br><span style="color:var(--mut);font-size:13px">تعارف واحترام بين الجميع</span></div></div><p style="color:var(--mut);font-size:13px;margin-top:12px">باش تبدا محادثة خاصة، دوز على "التوافقات" وختار شي واحد.</p>';
+}
+function openChat(u){
+  if(!me){toast('وثّق حسابك قبل');show('verify');return}
+  if(unsub){unsub();unsub=null}
+  var g=!u;
+  $('cAv').style.background=g?'#7a6aa8':col(u.id);$('cAv').textContent=g?'👥':'👤';
+  $('cName').textContent=g?'مجموعة الدردشة':u.n;
+  chatKey=g?null:[me.uid,u.id].sort().join('_');
+  curTarget=g?'group':u.id;
+  var q=g?db.collection('groupMsgs'):db.collection('chats').doc(chatKey).collection('messages');
+  unsub=q.orderBy('ts','desc').limit(50).onSnapshot(function(s){
+    var a=[];s.forEach(function(d){a.push(d.data())});a.reverse();
+    $('chatBox').innerHTML=a.map(function(m){var mine=m.from===me.uid;return '<div class="bubble '+(mine?'br':'bl')+'">'+(g&&!mine?'<b>'+esc(m.name||'')+':</b> ':'')+esc(m.text)+'</div>'}).join('');
+    window.scrollTo(0,document.body.scrollHeight);
+  },function(e){toast('خطأ: '+(e.code||''))});
+  _show('chat');
+}
+function send(){
+  var v=$('ct').value.trim();if(!v||!me)return;
+  if(bad(v)){toast('🚫 ممنوع واتساب والأرقام فالدردشة');return}
+  var m={from:me.uid,text:v,ts:firebase.firestore.FieldValue.serverTimestamp()},p;
+  if(chatKey){p=db.collection('chats').doc(chatKey).collection('messages').add(m)}
+  else{m.name=(myN||'مستعمل').slice(0,40);p=db.collection('groupMsgs').add(m)}
+  p.catch(function(e){toast('خطأ: '+(e.code||''))});
+  $('ct').value='';
+}
+function rep(){
+  if(!me){toast('وثّق حسابك قبل');return}
+  var t=$('s-chat').classList.contains('active')?curTarget:((users[ui]||{}).id||'');
+  db.collection('reports').add({by:me.uid,target:t,ts:firebase.firestore.FieldValue.serverTimestamp()})
+   .then(function(){toast('🚩 تصيفط البلاغ، شكرا')}).catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+function logout(){
+  if(!me){toast('ما نتا مسجل');return}
+  if(unsub){unsub();unsub=null}
+  auth.signOut().then(function(){
+    $('vb').textContent='';$('vbtn').style.display='';
+    $('nm').value='';$('pc').value='';$('bio').value='';$('pn').textContent='البروفايل ديالي';
+    $('vs1').style.display='block';$('vs2').style.display='none';$('ph').value='';$('cd').value='';
+    conf=null;rv=null;myN='';chatKey=null;
+    toast('تم تسجيل الخروج ✅');_show('welcome');
+  }).catch(function(e){toast('خطأ: '+(e.code||''))});
+}
+$('matches').innerHTML='';renderUsers();home();$('dbg').textContent='v4 · ready · fs:'+(typeof firebase.firestore);
+</script>
+</body>
+</html>
